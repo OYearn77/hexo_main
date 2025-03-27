@@ -1,0 +1,9 @@
+安装 pug 以及 stylus 的渲染器
+cnpm install hexo-renderer-pug hexo-renderer-stylus --save
+
+网站根目录下找到**_config.yml文件，修改主题themes
+
+本地预览
+hexo clean //执行此命令后继续下一条
+hexo g //生成博客目录
+hexo s //本地预览
