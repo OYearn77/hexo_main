@@ -226,88 +226,89 @@ i, em, dfn {
 // 自定义光标样式
 // 默认光标
 body {
-  cursor: url(../cur_dark/arrow.cur), default
+  cursor: url(./cur_dark/arrow.png), default
 }
 
 // 文本编辑光标
-input, textarea, [contenteditable="true"] {
-  cursor: url(../cur_dark/ibeam.cur), text
+input, textarea, [contenteditable="true"], p, span,time {
+  cursor: url(./cur_dark/ibeam.png) 16 16, text
 }
 
 // 链接和可点击元素
-a, button, [role="button"], .clickable, summary, [onclick] {
-  cursor: url(../cur_dark/hand.cur), pointer
+a, button, [role="button"], .clickable, summary, [onclick],article {
+  cursor: url(./cur_dark/hand.png), pointer
 }
 
 // 帮助信息
 [title], [data-tooltip], .help {
-  cursor: url(../cur_dark/help.cur), help
+  cursor: url(./cur_dark/help.png), help
 }
 
 // 禁用元素
 button:disabled, .disabled, [disabled] {
-  cursor: url(../cur_dark/no.cur), not-allowed
+  cursor: url(./cur_dark/no.png), not-allowed
 }
 
 // 调整大小
 .resize, [resize], .resizable {
-  cursor: url(../cur_dark/sizewe.cur), ew-resize
+  cursor: url(./cur_dark/sizewe.png), ew-resize
 }
 
 // 垂直调整大小
 .resize-vertical, [resize="vertical"] {
-  cursor: url(../cur_dark/sizens.cur), ns-resize
+  cursor: url(./cur_dark/sizens.png), ns-resize
 }
 
 // 对角线调整大小
 .resize-nwse {
-  cursor: url(../cur_dark/sizenw.cur), nwse-resize
+  cursor: url(./cur_dark/sizenw.png), nwse-resize
 }
 
 // 对角线调整大小 (反向)
 .resize-nesw {
-  cursor: url(../cur_dark/sizene.cur), nesw-resize
+  cursor: url(./cur_dark/sizene.png), nesw-resize
 }
 
 // 所有方向调整大小
 .resize-all {
-  cursor: url(../cur_dark/sizeall.cur), all-scroll
+  cursor: url(./cur_dark/sizeall.png), all-scroll
 }
 
 // 精确选择/十字准星
 .precise, .crosshair, .target {
-  cursor: url(../cur_dark/crosshair.cur), crosshair
+  cursor: url(./cur_dark/crosshair.png), crosshair
 }
 
 // 人形图标
 .person {
-  cursor: url(../cur_dark/person.cur), default
+  cursor: url(./cur_dark/person.png), default
 }
 
 // 固定图标
 .pin {
-  cursor: url(../cur_dark/pin.cur), default
+  cursor: url(./cur_dark/pin.png), default
 }
 
 // 向上箭头
 .up {
-  cursor: url(../cur_dark/uparrow.cur), n-resize
+  cursor: url(./cur_dark/uparrow.png), n-resize
 }
 
 // 钢笔
 .pen, .draw {
-  cursor: url(../cur_dark/nwpen.cur), default
+  cursor: url(./cur_dark/nwpen.png), default
 }
 
 // 等待
 .waiting, .loading, .progress {
-  cursor: url(../cur_dark/wait.ani), wait
+  cursor: url(./cur_dark/wait.ani), wait
 }
 
 // 应用程序启动
 .starting {
-  cursor: url(../cur_dark/appstarting.ani), progress
+  cursor: url(./cur_dark/appstarting.ani), progress
 }
+
 
 @import "_partial/nav"
 @import "_partial/header"
