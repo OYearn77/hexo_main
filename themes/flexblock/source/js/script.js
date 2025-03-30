@@ -1,3 +1,6 @@
+//4个功能 
+//1.主题颜色切换  2.移动端导航栏控制
+//3.返回顶部     4.懒加载背景图片
 window.addEventListener("DOMContentLoaded", function() {
   const html            = document.querySelector("html");
   const navBtn          = document.querySelector(".navbar-btn");

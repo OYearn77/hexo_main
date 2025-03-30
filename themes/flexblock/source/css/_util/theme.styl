@@ -102,3 +102,32 @@ $dark-border-secondary = #373e47;
     --theme-border-secondary: $dark-border-secondary;
   }
 }
+:root.theme-light {
+  --scrollbar-track: rgba(216, 216, 216, 0.6);  /* 接近 light-bg-primary */
+  --scrollbar-thumb: rgba(175, 175, 175, 0.8);  /* 接近 light-bg-shadow */
+  --scrollbar-thumb-hover: rgba(120, 119, 123, 0.9);  /* 接近 light-text-low */
+}
+
+/* 黑暗主题滚动条 */
+:root.theme-dark {
+  --scrollbar-track: rgba(37, 44, 49, 0.6);  /* 接近 dark-bg-primary */
+  --scrollbar-thumb: rgba(48, 58, 64, 0.8);  /* 接近 dark-bg-high */
+  --scrollbar-thumb-hover: rgba(173, 186, 199, 0.5);  /* 接近 dark-text-low */
+}
+
+/* 系统主题感知（当未明确设置网站主题时） */
+@media (prefers-color-scheme: light) {
+    :root {
+    --scrollbar-track: rgba(216, 216, 216, 0.6);  /* 接近 light-bg-primary */
+    --scrollbar-thumb: rgba(175, 175, 175, 0.8);  /* 接近 light-bg-shadow */
+    --scrollbar-thumb-hover: rgba(120, 119, 123, 0.9);  /* 接近 light-text-low */
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --scrollbar-track: rgba(37, 44, 49, 0.6);  /* 接近 dark-bg-primary */
+    --scrollbar-thumb: rgba(48, 58, 64, 0.8);  /* 接近 dark-bg-high */
+    --scrollbar-thumb-hover:rgba(173, 186, 199, 0.5);  
+  }
+}

@@ -1,7 +1,7 @@
 ---
-title: {{ title }}
+title: more
+date: 2025-03-29 20:47:04
 subtitle:
-date: {{ date }}
 categories:
 tags:
 cover:

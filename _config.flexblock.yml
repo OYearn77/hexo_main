@@ -5,6 +5,8 @@ menu:
   关于: /about
   更多: /
 
+# 左上角logo 注释掉则显示title
+# logo: 
 
 # 主页banner图
 banner: https://i.ibb.co.com/7NCMPKF5/2017-01-27-532.jpg
@@ -23,20 +25,22 @@ toc:
   min_depth: 2 # 生成 TOC 的最小深度
 
 comments:
-  enable: false
+  enable: ture
   use: 'valine' # valine || disqus
   # valine 评论
   # docs: https://valine.js.org
   # You can get your appid and appkey from https://leancloud.cn
   # 这里appId和appKey一定一定要改成自己的，没有的话去https://leancloud.cn这个网站注册创建一个
   valine:
-    appId: 
-    appKey: 
-    avatar: mm
+    appId: nGgYVf0B4sYYxbVLbrwazR9A-MdYXbMMI
+    appKey: 9RO8q8yx18YXuABUn5Fu6pb9
+    avatar: 'monsterid' # 头像展示方式 Gravatar style : mm/identicon/monsterid/wavatar/retro/hide
+    serverURLs: https://nGgYVf0B.api.lncldglobal.com
     placeholder: 随便说点什么叭～
     notify: true
     visitor: true
     pageSize: 10
+    background:  # 评论框背景
   # disqus 评论
   # docs: https://disqus.com/
   disqus:
@@ -86,4 +90,5 @@ social_icon:
     weibo   : 
     github  : https://github.com/miiiku/
     twitter : https://twitter.com/guanquanhong
+    
 

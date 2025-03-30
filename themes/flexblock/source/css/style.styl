@@ -2,10 +2,10 @@
 @import "_util/mixins"
 @import "_util/theme"
 
-// 解决ios下overflow: hidden后仍然能滚动的问题，隐藏滚动条
-::-webkit-scrollbar {
-  display: none;
-}
+// // 解决ios下overflow: hidden后仍然能滚动的问题，隐藏滚动条
+// ::-webkit-scrollbar {
+//   display: none;
+// }
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a,
 abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q,
@@ -223,90 +223,179 @@ i, em, dfn {
   }
 }
 
-// 自定义光标样式
-// 默认光标
-body {
-  cursor: url(./cur_dark/arrow.png), default
+// // 自定义光标样式
+// // 默认光标
+// body {
+//   cursor: url(./cur_dark/arrow.png), default
+// }
+// // 文本编辑光标
+// input, textarea, [contenteditable="true"], span, time,strong,h1,h2,h3,h4,h5,h6 {
+//   cursor: url(./cur_dark/ibeam.png) 16 16, text
+// }
+
+
+// // 链接和可点击元素
+// a, button, [role="button"], .clickable, summary, [onclick],article {
+//   cursor: url(./cur_dark/hand.png), pointer
+// }
+// // 帮助信息
+// [title], [data-tooltip], .help {
+//   cursor: url(./cur_dark/help.png), help
+// }
+// // 禁用元素
+// button:disabled, .disabled, [disabled] {
+//   cursor: url(./cur_dark/no.png), not-allowed
+// }
+// // 调整大小
+// .resize, [resize], .resizable {
+//   cursor: url(./cur_dark/sizewe.png), ew-resize
+// }
+// // 垂直调整大小
+// .resize-vertical, [resize="vertical"] {
+//   cursor: url(./cur_dark/sizens.png), ns-resize
+// }
+// // 对角线调整大小
+// .resize-nwse {
+//   cursor: url(./cur_dark/sizenw.png), nwse-resize
+// }
+// // 对角线调整大小 (反向)
+// .resize-nesw {
+//   cursor: url(./cur_dark/sizene.png), nesw-resize
+// }
+// // 所有方向调整大小
+// .resize-all {
+//   cursor: url(./cur_dark/sizeall.png), all-scroll
+// }
+// // 精确选择/十字准星
+// .precise, .crosshair, .target {
+//   cursor: url(./cur_dark/crosshair.png), crosshair
+// }
+// // 人形图标
+// .person {
+//   cursor: url(./cur_dark/person.png), default
+// }
+// // 固定图标
+// .pin {
+//   cursor: url(./cur_dark/pin.png), default
+// }
+// // 向上箭头
+// .up {
+//   cursor: url(./cur_dark/uparrow.png), n-resize
+// }
+// // 钢笔
+// .pen, .draw {
+//   cursor: url(./cur_dark/nwpen.png), default
+// }
+// // 等待
+// .waiting, .loading, .progress {
+//   cursor: url(./cur_dark/wait.ani), wait
+// }
+// // 应用程序启动
+// .starting {
+//   cursor: url(./cur_dark/appstarting.ani), progress
+// }
+
+
+/* 代码块容器样式 */
+.highlight-wrapper {
+  margin-bottom: 20px;
 }
 
-// 文本编辑光标
-input, textarea, [contenteditable="true"], p, span,time {
-  cursor: url(./cur_dark/ibeam.png) 16 16, text
+/* 代码标题栏样式 */
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px 17px;
+  background: #f0eee7;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border: 1px solid #f0eee7;
+  border-bottom: none;
+    transform: translateY(9px);
 }
 
-// 链接和可点击元素
-a, button, [role="button"], .clickable, summary, [onclick],article {
-  cursor: url(./cur_dark/hand.png), pointer
+/* 语言标签样式 */
+.code-language {
+  color: #6a737d;
+  font-size: 14px;
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
 }
 
-// 帮助信息
-[title], [data-tooltip], .help {
-  cursor: url(./cur_dark/help.png), help
+/* 复制按钮样式 */
+.copy-button {
+  background: transparent;
+  border: none;
+  color: #6a737d;
+  cursor: pointer;
+  padding: 2px 6px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  opacity: 0.8;
+  transition: opacity 0.2s;
 }
 
-// 禁用元素
-button:disabled, .disabled, [disabled] {
-  cursor: url(./cur_dark/no.png), not-allowed
+.copy-button:hover {
+  opacity: 1;
 }
 
-// 调整大小
-.resize, [resize], .resizable {
-  cursor: url(./cur_dark/sizewe.png), ew-resize
+/* 复制按钮图标 */
+.copy-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  vertical-align: middle;
 }
 
-// 垂直调整大小
-.resize-vertical, [resize="vertical"] {
-  cursor: url(./cur_dark/sizens.png), ns-resize
+/* 确保代码块样式正确 - 添加圆角 */
+.highlight {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  max-height: calc(35em * 1.5);
+  overflow-y: auto;
+  background-color: #282c34;
+  border-radius: 10px;
 }
 
-// 对角线调整大小
-.resize-nwse {
-  cursor: url(./cur_dark/sizenw.png), nwse-resize
+/* 代码块内容容器 */
+.code-content {
+  background-color: #282c34;
+  border: 1px solid #e0e0e0;
+  border-top: none;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-// 对角线调整大小 (反向)
-.resize-nesw {
-  cursor: url(./cur_dark/sizene.png), nesw-resize
+/* 确保内部表格样式 */
+.code-content table {
+  margin: 0;
+  border: none;
 }
 
-// 所有方向调整大小
-.resize-all {
-  cursor: url(./cur_dark/sizeall.png), all-scroll
+/* 确保代码前景色正确 */
+.code-content pre {
+  margin: 0;
+  color: #abb2bf;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
-// 精确选择/十字准星
-.precise, .crosshair, .target {
-  cursor: url(./cur_dark/crosshair.png), crosshair
+/* 确保滚动条不会破坏圆角效果 */
+.code-content::-webkit-scrollbar {
+  border-bottom-right-radius: 10px;
 }
 
-// 人形图标
-.person {
-  cursor: url(./cur_dark/person.png), default
-}
 
-// 固定图标
-.pin {
-  cursor: url(./cur_dark/pin.png), default
-}
+/* 页面主滚动条 - 主题感知 */
+/* 明亮主题滚动条 */
 
-// 向上箭头
-.up {
-  cursor: url(./cur_dark/uparrow.png), n-resize
-}
 
-// 钢笔
-.pen, .draw {
-  cursor: url(./cur_dark/nwpen.png), default
-}
-
-// 等待
-.waiting, .loading, .progress {
-  cursor: url(./cur_dark/wait.ani), wait
-}
-
-// 应用程序启动
-.starting {
-  cursor: url(./cur_dark/appstarting.ani), progress
+/* 全局滚动条样式 */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
 
