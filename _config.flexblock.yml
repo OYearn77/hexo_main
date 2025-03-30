@@ -1,8 +1,11 @@
 # Header 导航栏 可以新增内容
 menu:
   首页: /
+  分类: /categories
+  标签: /tags
   友链: /links
   关于: /about
+  归档: /archives
   更多: /
 
 # 左上角logo 注释掉则显示title

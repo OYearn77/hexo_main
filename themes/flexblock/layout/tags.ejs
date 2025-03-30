@@ -1,0 +1,51 @@
+<!-- 标签总览页面 -->
+<div class="body-container">
+    <div class="content-container layout-block">
+      <section class="layout-padding">
+        <div class="card-container content-padding--large soft-size--large soft-style--box">
+          <h2 class="card-text--title" style="margin-bottom: 20px;">所有标签</h2>
+          
+          <div class="tag-cloud-container">
+            <% 
+              // 获取所有标签
+              var tags = site.tags.sort('name').map(function(tag){
+                return {
+                  name: tag.name,
+                  path: url_for(tag.path),
+                  count: tag.length
+                };
+              });
+              
+              // 计算最小和最大文章数
+              var min = 1;
+              var max = 1;
+              
+              tags.forEach(function(tag){
+                min = Math.min(min, tag.count);
+                max = Math.max(max, tag.count);
+              });
+              
+              // 最小和最大值相同时，避免除以零
+              if (min === max) {
+                max = min + 1;
+              }
+              
+              // 计算每个标签的大小
+              tags.forEach(function(tag){
+                var size = min === max ? 5 : Math.floor(((tag.count - min) / (max - min)) * 9) + 1;
+                size = Math.min(10, Math.max(1, size)); // 确保范围在1-10之间
+                
+                // 输出标签项
+            %>
+              <div class="tag-item tag-size-<%= size %>">
+                <a href="<%= tag.path %>">
+                  <%= tag.name %>
+                  <span class="tag-count"><%= tag.count %></span>
+                </a>
+              </div>
+            <% }); %>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
