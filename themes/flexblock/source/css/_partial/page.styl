@@ -1,46 +1,46 @@
 /** page list */
 .content-container.article-list {
-  display: flex
-  flex-wrap: wrap
+  display: flex;
+  flex-wrap: wrap;
 
   .article-item {
-    flex: 1 0 auto
-    min-width: 25%
-    max-width: 100%
+    flex: 1 0 auto;
+    min-width: 25%;
+    max-width: 100%;
   }
 
   .card-container.article-card {
-    padding: var(--content-large-padding)
+    padding: var(--content-large-padding);
   }
 }
 
 
 /** post content */
 .content-container.post-container {
-  display: flex
+  display: flex;
   align-items: flex-start;
   overflow: visible;
 
   .article-info {
     // 文章导航
     .article-nav {
-      display: flex
-      width: 100%
-      overflow: hidden
+      display: flex;
+      width: 100%;
+      overflow: hidden;
 
       .article-nav-item {
-        flex: 1 1 auto
-        min-width: 50%
-        text-align: center
+        flex: 1 1 auto;
+        min-width: 50%;
+        text-align: center;
       }
     }
 
     /** link page 独立内容 */
     .page-link-container {
-      display: flex
-      flex-direction: row
-      flex-wrap: wrap
-      justify-content: center
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
 
       .link-item {
         @media $mq-pc {
@@ -92,17 +92,17 @@
     display: flex;
     flex-direction: column;
     position: sticky;
-    top: 0;
+    top: -255px;
     width: 360px;
     min-width: 360px;
-    color: var(--theme-text-primary)
+    color: var(--theme-text-primary);
 
     .widget-title {
       display: flex;
       align-items: center;
-      font-size: var(--font-stress-size)
-      font-weight: bolder
-      margin-bottom: 12px
+      font-size: var(--font-stress-size);
+      font-weight: bolder;
+      margin-bottom: 12px;
 
       svg {
         display: block;
@@ -124,9 +124,9 @@
       }
 
       h2 {
-        font-weight: bolder
-        font-size: var(--font-stress-size)
-        line-height: var(--font-base-lh)
+        font-weight: bolder;
+        font-size: var(--font-stress-size);
+        line-height: var(--font-base-lh);
       }
 
       .count-box {
@@ -135,10 +135,10 @@
         margin-top: 16px;
 
         .count-box--item {
-          display: flex
-          align-items: center
-          justify-content: center
-          flex: 0 0 33.3333%
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex: 0 0 33.3333%;
 
           svg {
             width: 24px;
@@ -151,17 +151,36 @@
 
     .widget-site .widget-body {
       .site-info {
-        display: flex
-        flex-direction: column
-        gap: 10px 0
+        display: flex;
+        flex-direction: column;
+        gap: 10px 0;
 
         .site-info-item {
-          color: var(--theme-text-primary)
+          color: var(--theme-text-primary);
         }
       }
     }
 
     .widget-toc .widget-body {
+      max-height: 30vh; /* 设置最大高度 */
+      overflow-y: auto; /* 添加垂直滚动条 */
+      scrollbar-width: thin; /* Firefox样式 */
+      scrollbar-color: var(--theme-text-active) transparent; /* Firefox样式 */
+      
+      /* WebKit浏览器的滚动条样式 */
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background-color: var(--theme-text-active);
+        border-radius: 3px;
+      }
+
       ol {
         &:not(:first-child) {
           padding-left: 20px;
@@ -189,18 +208,18 @@
     .widget-categorys .widget-body {
       .categorys-list-item {
         &:not(:last-child) {
-          margin-bottom: 14px
+          margin-bottom: 14px;
         }
 
         a {
-          color: var(--theme-text-primary)
-          transition: color 0.3s ease, border-color 0.3s ease
-          font-weight: bolder
-          border-bottom: 2px solid var(--theme-border-primary)
+          color: var(--theme-text-primary);
+          transition: color 0.3s ease, border-color 0.3s ease;
+          font-weight: bolder;
+          border-bottom: 2px solid var(--theme-border-primary);
 
           &:hover {
-            color: var(--theme-text-active)
-            border-color: var(--theme-text-active)
+            color: var(--theme-text-active);
+            border-color: var(--theme-text-active);
           }
         }
       }
@@ -208,20 +227,20 @@
 
     .widget-tags .widget-body {
       .tags-cloud {
-        display: flex
-        flex-wrap: wrap
+        display: flex;
+        flex-wrap: wrap;
         align-items: center;
         margin: 0 -8px;
 
         a {
-          margin: 3px
-          display: block
-          padding: 4px 8px
-          color: var(--theme-text-primary)
-          transition: box-shadow 0.3s ease
+          margin: 3px;
+          display: block;
+          padding: 4px 8px;
+          color: var(--theme-text-primary);
+          transition: box-shadow 0.3s ease;
 
           &:hover {
-            soft-box(var(--soft-small-radius))
+            soft-box(var(--soft-small-radius));
           }
         }
       }
@@ -230,8 +249,8 @@
 
   @media $mq-pc {
     .article-info {
-      flex: 0 1 calc(100% - 360px)
-      min-width: calc(100% - 360px)
+      flex: 0 1 calc(100% - 360px);
+      min-width: calc(100% - 360px);
     }
     .widget-info {
       display: flex;
@@ -247,4 +266,5 @@
       display: none;
     }
   }
+  
 }

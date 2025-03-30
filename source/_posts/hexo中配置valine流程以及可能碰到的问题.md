@@ -71,7 +71,7 @@ serverURLs: https://xxxxxxxx.api.lncldglobal.com # 把xxxxxxxx替换为自己App
 
 再进行部署，测试发现可以评论成功。![QQ截图20250330185809.png](https://s2.loli.net/2025/03/30/y4Y8tE6I2sRQ95k.png)
 
-## 管理评论及删除
+## 评论管理和删除
 
 打开leancloud，在数据存储->结构化数据->comment中，可以发现刚刚所发送的评论![QQ截图20250330190344.png](https://s2.loli.net/2025/03/30/RslnYop7JdQaz14.png)
 
