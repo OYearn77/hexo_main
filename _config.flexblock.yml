@@ -21,11 +21,12 @@ author:
   description: I hope that leaves a mark.
 
 toc:
+  enable: true
   max_depth: 3 # 生成 TOC 的最大深度
-  min_depth: 2 # 生成 TOC 的最小深度
+  min_depth: 1 # 生成 TOC 的最小深度
 
 comments:
-  enable: ture
+  enable: true
   use: 'valine' # valine || disqus
   # valine 评论
   # docs: https://valine.js.org
