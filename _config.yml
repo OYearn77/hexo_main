@@ -55,7 +55,7 @@ highlight:
   auto_detect: true
   tab_replace:
   hljs: true
-  theme: 
+  theme: atom-one-dark
 prismjs:
   preprocess: true
   line_number: true

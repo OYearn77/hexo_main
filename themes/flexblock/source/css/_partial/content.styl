@@ -292,3 +292,33 @@
     color: var(--theme-text-low);
   }
 }
+.article-entry p + p {
+  margin-top: 10px;
+}
+.article-entry p:has(+ p) {
+  margin-bottom: 10px;
+}
+
+/* 或者给文章内容中的标题添加 */
+.article-entry h1::before, 
+.article-entry h2::before, 
+.article-entry h3::before, 
+.article-entry h4::before,
+.article-entry h5::before,
+.article-entry h6::before,   {
+  content: "✦ ";
+  color: #333;
+}
+// 首行缩进
+/* 给文章内容中的所有段落添加首行缩进 */
+.article-entry p::before {
+  content: "\2003\2003"; /* 相当于 &emsp;&emsp; */
+  display: inline;
+}
+.article-entry pre p::before,
+.article-entry blockquote p::before,
+.article-entry li p::before,
+.article-entry .no-indent p::before,
+.article-entry p.no-indent::before {
+  content: "";
+}

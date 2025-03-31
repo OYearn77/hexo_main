@@ -6,21 +6,24 @@
   padding: 30px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start; /* 改为左对齐，让每个项目保持自己的大小 */
   gap: 15px;
 }
 
 /* 分类项样式 */
 .category-item {
-  display: inline-block;
+  display: inline-flex; /* 改为 inline-flex 以便内容能够决定大小 */
   padding: 8px 15px;
   border-radius: var(--soft-primary-radius, 12px);
   background-color: var(--theme-bg-high, #ffffff);
   transition: all 0.3s ease;
   margin: 5px;
+  /* 保持盒子阴影 */
   box-shadow: 
     var(--soft-shadow, 3px) var(--soft-shadow, 3px) calc(var(--soft-shadow, 3px) * 2) var(--theme-bg-shadow, #dddfe1),
     calc(-1 * var(--soft-shadow, 3px)) calc(-1 * var(--soft-shadow, 3px)) calc(var(--soft-shadow, 3px) * 2) var(--theme-bg-high, #ffffff);
+  align-items: center; /* 确保内容垂直居中 */
+  height: auto; /* 高度由内容决定 */
 }
 
 .category-item:hover {
@@ -49,7 +52,7 @@
   font-weight: bold;
 }
 
-/* 分类大小变化 */
+/* 分类大小变化 - 保持不变 */
 .category-size-1 { font-size: 0.8rem; }
 .category-size-2 { font-size: 0.9rem; }
 .category-size-3 { font-size: 1.0rem; }
@@ -63,7 +66,7 @@
 
 /* 标签项样式 */
 .tag-item {
-  display: inline-block;
+  display: inline-flex; /* 改为 inline-flex */
   padding: 6px 12px;
   border-radius: var(--soft-primary-radius, 12px);
   background-color: var(--theme-bg-high, #ffffff);
@@ -72,6 +75,8 @@
   box-shadow: 
     var(--soft-shadow, 3px) var(--soft-shadow, 3px) calc(var(--soft-shadow, 3px) * 2) var(--theme-bg-shadow, #dddfe1),
     calc(-1 * var(--soft-shadow, 3px)) calc(-1 * var(--soft-shadow, 3px)) calc(var(--soft-shadow, 3px) * 2) var(--theme-bg-high, #ffffff);
+  align-items: center; /* 确保内容垂直居中 */
+  height: auto; /* 高度由内容决定 */
 }
 
 .tag-item:hover {
@@ -100,7 +105,7 @@
   font-weight: bold;
 }
 
-/* 标签大小变化 */
+/* 标签大小变化 - 保持不变 */
 .tag-size-1 { font-size: 0.75rem; }
 .tag-size-2 { font-size: 0.85rem; }
 .tag-size-3 { font-size: 0.95rem; }

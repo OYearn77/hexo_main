@@ -3,7 +3,6 @@ menu:
   首页: /
   分类: /categories
   标签: /tags
-  友链: /links
   关于: /about
   归档: /archives
   更多: /
@@ -94,5 +93,6 @@ social_icon:
     weibo   : 
     github  : https://github.com/miiiku/
     twitter : https://twitter.com/guanquanhong
+    bilibili : https://space.bilibili.com/399088173?spm_id_from=333.1007.0.0
     
 

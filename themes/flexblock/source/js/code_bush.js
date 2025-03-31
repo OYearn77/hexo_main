@@ -1,3 +1,4 @@
+// 代码块模组，支持复制整个代码与识别代码类型
 document.addEventListener('DOMContentLoaded', function() {
   // 查找所有代码块
   const codeBlocks = document.querySelectorAll('figure.highlight');
