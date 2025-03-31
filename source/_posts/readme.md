@@ -4,8 +4,6 @@ date: 2025-03-29 22:19:47
 subtitle: 新导引头追击目标MATLAB仿真程序
 categories: 
 tags: 
-  - real
-  - hexo
 cover:
 toc: true
 ---

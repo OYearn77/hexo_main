@@ -6,24 +6,25 @@
   padding: 30px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start; /* 改为左对齐，让每个项目保持自己的大小 */
+  align-items: flex-start; /* 重要：顶部对齐而不是拉伸 */
+  justify-content: flex-start;
   gap: 15px;
 }
 
 /* 分类项样式 */
 .category-item {
-  display: inline-flex; /* 改为 inline-flex 以便内容能够决定大小 */
+  display: inline-block;
   padding: 8px 15px;
   border-radius: var(--soft-primary-radius, 12px);
   background-color: var(--theme-bg-high, #ffffff);
   transition: all 0.3s ease;
   margin: 5px;
-  /* 保持盒子阴影 */
   box-shadow: 
     var(--soft-shadow, 3px) var(--soft-shadow, 3px) calc(var(--soft-shadow, 3px) * 2) var(--theme-bg-shadow, #dddfe1),
     calc(-1 * var(--soft-shadow, 3px)) calc(-1 * var(--soft-shadow, 3px)) calc(var(--soft-shadow, 3px) * 2) var(--theme-bg-high, #ffffff);
-  align-items: center; /* 确保内容垂直居中 */
-  height: auto; /* 高度由内容决定 */
+  height: auto !important; /* 强制高度自适应 */
+  min-height: 0 !important; /* 移除最小高度限制 */
+  align-self: flex-start !important; /* 确保项目从顶部对齐 */
 }
 
 .category-item:hover {
@@ -37,8 +38,9 @@
   color: var(--theme-text-primary, #3e3e5f);
   text-decoration: none;
   font-weight: 500;
-  display: flex;
+  display: inline-flex; /* 改为内联弹性布局 */
   align-items: center;
+  height: auto !important;
 }
 
 .category-item .category-count {
@@ -52,7 +54,7 @@
   font-weight: bold;
 }
 
-/* 分类大小变化 - 保持不变 */
+/* 分类大小变化 */
 .category-size-1 { font-size: 0.8rem; }
 .category-size-2 { font-size: 0.9rem; }
 .category-size-3 { font-size: 1.0rem; }
@@ -66,7 +68,7 @@
 
 /* 标签项样式 */
 .tag-item {
-  display: inline-flex; /* 改为 inline-flex */
+  display: inline-block;
   padding: 6px 12px;
   border-radius: var(--soft-primary-radius, 12px);
   background-color: var(--theme-bg-high, #ffffff);
@@ -75,8 +77,9 @@
   box-shadow: 
     var(--soft-shadow, 3px) var(--soft-shadow, 3px) calc(var(--soft-shadow, 3px) * 2) var(--theme-bg-shadow, #dddfe1),
     calc(-1 * var(--soft-shadow, 3px)) calc(-1 * var(--soft-shadow, 3px)) calc(var(--soft-shadow, 3px) * 2) var(--theme-bg-high, #ffffff);
-  align-items: center; /* 确保内容垂直居中 */
-  height: auto; /* 高度由内容决定 */
+  height: auto !important; /* 强制高度自适应 */
+  min-height: 0 !important; /* 移除最小高度限制 */
+  align-self: flex-start !important; /* 确保项目从顶部对齐 */
 }
 
 .tag-item:hover {
@@ -90,8 +93,9 @@
   color: var(--theme-text-primary, #3e3e5f);
   text-decoration: none;
   font-weight: 500;
-  display: flex;
+  display: inline-flex; /* 改为内联弹性布局 */
   align-items: center;
+  height: auto !important;
 }
 
 .tag-item .tag-count {
@@ -105,7 +109,7 @@
   font-weight: bold;
 }
 
-/* 标签大小变化 - 保持不变 */
+/* 标签大小变化 */
 .tag-size-1 { font-size: 0.75rem; }
 .tag-size-2 { font-size: 0.85rem; }
 .tag-size-3 { font-size: 0.95rem; }
@@ -116,6 +120,18 @@
 .tag-size-8 { font-size: 1.45rem; }
 .tag-size-9 { font-size: 1.55rem; }
 .tag-size-10 { font-size: 1.65rem; }
+
+/* 确保容器和项目设置正确 */
+.widget-tags, .widget-categorys {
+  display: block;
+}
+
+/* 额外的覆盖规则，确保不受其他样式影响 */
+.tag-item, .category-item {
+  flex: 0 0 auto !important; /* 不伸缩，保持自身大小 */
+  width: auto !important; /* 宽度自适应 */
+  max-height: none !important; /* 无最大高度限制 */
+}
 
 /* 响应式调整 */
 @media screen and (max-width: 768px) {
@@ -128,4 +144,43 @@
   .tag-item {
     padding: 5px 10px;
   }
+}
+
+/* 添加这个新类，用于包装项目，确保它们高度独立且垂直居中对齐 */
+.inline-block-wrapper {
+  display: inline-block;
+  vertical-align: middle; /* 改为中线对齐 */
+  margin: 5px;
+}
+
+/* 修改容器样式 */
+.category-cloud-container,
+.tag-cloud-container {
+  padding: 30px;
+  display: block;
+  text-align: center;
+  line-height: 0; /* 防止行高影响垂直对齐 */
+}
+
+/* 为容器添加一个辅助元素，以确保完美的垂直居中 */
+.category-cloud-container::after,
+.tag-cloud-container::after {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+/* 标签项样式保持不变，确保高度自适应 */
+.category-item,
+.tag-item {
+  margin: 0;
+  display: block;
+  height: auto !important;
+}
+//垂直方向中心线居中对齐
+.tag-item a,
+.category-item a {
+  line-height: 1.5; /* 设置一个合适的行高 */
+  vertical-align: middle;
 }

@@ -8,10 +8,6 @@ tags:
   - hexo
   - flexblock
   - 样式
-  - 1
-  - 2 
-  - 3
-  - 4
 cover: https://s2.loli.net/2025/03/31/YWF7e3siptSnvg4.png
 ---
 ## 增加底部跳转外部网站图标
