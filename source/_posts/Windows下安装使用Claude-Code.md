@@ -3,7 +3,7 @@ title: Windows下安装使用Claude Code
 toc: true
 date: 2025-04-01 23:50:37
 subtitle: Claude Code 3.7sonnet
-categories:  -AI工具
+categories:  AI工具
 tags: 
   - claude
   - 虚拟机
