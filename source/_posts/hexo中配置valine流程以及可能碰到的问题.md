@@ -76,3 +76,7 @@ serverURLs: https://xxxxxxxx.api.lncldglobal.com # 把xxxxxxxx替换为自己App
 打开leancloud，在数据存储->结构化数据->comment中，可以发现刚刚所发送的评论![QQ截图20250330190344.png](https://s2.loli.net/2025/03/30/RslnYop7JdQaz14.png)
 
 可以选中要删除的评论进行删除!![Snipaste_2025-03-30_19-04-59.png](https://s2.loli.net/2025/03/30/SVWyBs7H9M8PFn4.png)
+
+## 打开/关闭评论功能
+
+在YAML中额外添加`layout: page`如果不加layout则默认是`post`布局，默认打开评论系统。

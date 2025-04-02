@@ -6,7 +6,7 @@ subtitle:
 categories: git基本操作
 tags:
   - git
-cover:
+cover: https://s2.loli.net/2025/04/02/kDgnZ9hVdtvCasT.png
 ---
 ## 基本配置
 
