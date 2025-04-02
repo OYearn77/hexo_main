@@ -46,7 +46,7 @@ social_icon:
 ```
 
 这样在网站下方即可出现新增加的bilibili图标。
-![QQ20250331-215115.png](https://s2.loli.net/2025/03/31/zg1o4L57CX9ZJvK.png)
+![QQ20250331-215115.png](https://s2.loli.net/2025/03/31/zg1o4L57CX9ZJvK.png)<br><br>
 
 ## 增加顶部nav部分的分类、标签、归档
 
@@ -74,58 +74,88 @@ layout: "categories"
 ```apache
 <!-- 分类总览页面 -->
 <div class="body-container">
-    <div class="content-container layout-block">
-      <section class="layout-padding">
-        <div class="card-container content-padding--large soft-size--large soft-style--box">
-          <h2 class="card-text--title" style="margin-bottom: 20px;">所有分类</h2>
+  <div class="content-container layout-block">
+    <section class="layout-padding">
+      <div class="card-container content-padding--large soft-size--large soft-style--box">
+        <h2 class="card-text--title" style="margin-bottom: 20px;">所有分类</h2>
   
-          <div class="category-cloud-container">
-            <% 
-              // 获取所有分类
-              var categories = site.categories.sort('name').map(function(category){
-                return {
-                  name: category.name,
-                  path: url_for(category.path),
-                  count: category.length
-                };
-              });
+        <div class="category-cloud-container">
+          <% 
+            // 获取所有分类
+            var categories = site.categories.sort('name').map(function(category){
+              return {
+                name: category.name,
+                path: url_for(category.path),
+                count: category.length
+              };
+            });
   
-              // 计算最小和最大文章数
-              var min = 1;
-              var max = 1;
+            // 计算最小和最大文章数
+            var min = 1;
+            var max = 1;
   
-              categories.forEach(function(category){
-                min = Math.min(min, category.count);
-                max = Math.max(max, category.count);
-              });
+            categories.forEach(function(category){
+              min = Math.min(min, category.count);
+              max = Math.max(max, category.count);
+            });
   
-              // 最小和最大值相同时，避免除以零
-              if (min === max) {
-                max = min + 1;
-              }
+            // 最小和最大值相同时，避免除以零
+            if (min === max) {
+              max = min + 1;
+            }
   
-              // 计算每个分类的大小
-              categories.forEach(function(category){
-                var size = min === max ? 5 : Math.floor(((category.count - min) / (max - min)) * 9) + 1;
-                size = Math.min(10, Math.max(1, size)); // 确保范围在1-10之间
+            // 计算每个分类的大小
+            categories.forEach(function(category){
+              var size = min === max ? 5 : Math.floor(((category.count - min) / (max - min)) * 9) + 1;
+              size = Math.min(10, Math.max(1, size)); // 确保范围在1-10之间
   
-                // 输出分类项
-            %>
-              <div class="category-item category-size-<%= size %>">
+              // 输出分类项，添加inline-block-wrapper类
+          %>
+            <span class="inline-block-wrapper">
+              <div class="category-item category-size-<%= size %>" style="height:auto;">
                 <a href="<%= category.path %>">
                   <%= category.name %>
                   <span class="category-count"><%= category.count %></span>
                 </a>
               </div>
-            <% }); %>
-          </div>
+            </span>
+          <% }); %>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   </div>
+</div>
 ```
 
 同样的要增加css样式，读者可以自行创建修改，注意要在`menu:`中添加`分类: /categories`。
 
 同样的可以这样创建tags标签总览界面，以下是我的测试tags总览页面。
 ![Snipaste_2025-03-31_22-30-09.png](https://s2.loli.net/2025/03/31/s3MitIWKNwdgGJa.png)
+
+## 文章页面添加TOC(目录)
+
+修改scaffolds/post.md的默认样式如下
+
+```apache
+---
+title: {{ title }}
+subtitle:
+date: {{ date }}
+categories:
+tags:
+cover:
+toc: true
+---
+```
+
+其中只有在YAML格式中添加`toc: true`才能打开文章右侧目录功能，其名称为TOC，可以在themes/flexblock/layout/_widget/widget-toc中修改名称为目录。
+![Snipaste_2025-04-01_23-45-13.png](https://s2.loli.net/2025/04/01/ZyjbTS1CrhRJDXO.png)
+
+目录会自动收集标题h1~h6建立目录，可以调整主题配置文件调整显示的目录深度。
+
+```apache
+toc:
+  enable: true
+  max_depth: 5 # 生成 TOC 的最大深度
+  min_depth: 1 # 生成 TOC 的最小深度
+```
