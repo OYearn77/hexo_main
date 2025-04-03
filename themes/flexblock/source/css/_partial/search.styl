@@ -1,0 +1,76 @@
+// 搜索框样式
+.search-container
+  margin-top: 20px
+  width: 100%
+  max-width: 600px
+  margin-left: auto
+  margin-right: auto
+
+.search-form
+  display: flex
+  position: relative
+  height: 40px
+  
+.search-input
+  flex: 1
+  height: 100%
+  padding: 0 30px 0 15px
+  border: 2px solid rgba(255, 255, 255, 0.8)
+  border-radius: 20px
+  background: rgba(255, 255, 255, 0.2)
+  color: #fff
+  font-size: 16px
+  transition: all 0.3s ease
+  &::placeholder
+    color: rgba(255, 255, 255, 0.8)
+  &:focus
+    background: rgba(255, 255, 255, 0.3)
+    outline: none
+    border-color: #1e90ff
+
+.search-btn
+  position: absolute
+  right: 5px
+  top: 5px
+  width: 30px
+  height: 30px
+  border: none
+  background: transparent
+  cursor: pointer
+  display: flex
+  justify-content: center
+  align-items: center
+  
+  .icon
+    width: 20px
+    height: 20px
+    fill: rgba(255, 255, 255, 0.8)
+    transition: fill 0.3s ease
+
+.search-form
+  display: flex
+  position: relative
+  height: 40px
+  &:focus-within
+    .icon
+      fill: #1e90ff
+
+// 搜索结果页样式
+.search-result-title
+  margin-bottom: 20px
+  color: #333
+  font-size: 24px
+  
+.search-keyword
+  color: #1e90ff
+  font-weight: bold
+
+.search-count
+  color: #666
+  margin-left: 10px
+  font-size: 16px
+
+.no-result
+  text-align: center
+  color: #666
+  padding: 50px 0

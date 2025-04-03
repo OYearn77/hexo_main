@@ -112,3 +112,24 @@ deploy: #项目发布
   repo: https://github.com/OYearn77/oyearn77.github.io.git
   branch: master
 
+# 搜索功能配置
+jsonContent:
+  meta: true
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: true
+    raw: false
+    content: true
+    slug: true
+    updated: true
+    comments: false
+    link: true
+    permalink: true
+    excerpt: false
+    categories: true
+    tags: true
+    cover: true
+

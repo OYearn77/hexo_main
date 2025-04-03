@@ -1,0 +1,17 @@
+<!-- 搜索结果页面 -->
+
+<div class="body-container">
+  <div class="content-container layout-block">
+    <div class="layout-padding">
+      <h1 class="search-result-title">搜索结果：<span id="search-keyword" class="search-keyword"></span><span id="search-count" class="search-count"></span></h1>
+      <div id="no-result" class="no-result" style="display: none;">没有找到相关结果，请尝试其他关键词</div>
+    </div>
+  </div>
+  
+  <!-- 搜索结果列表，结构与主页文章列表相同 -->
+  <div class="content-container layout-block article-list" id="search-result">
+    <!-- 搜索结果将通过JavaScript动态添加到这里 -->
+  </div>
+</div>
+
+<%- js('js/search.js') %> 
