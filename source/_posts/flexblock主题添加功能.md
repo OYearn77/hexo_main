@@ -159,3 +159,19 @@ toc:
   max_depth: 5 # 生成 TOC 的最大深度
   min_depth: 1 # 生成 TOC 的最小深度
 ```
+
+## 文章中添加视频
+
+在markdown文件中的YAML部分添加
+
+```dplayer:
+dplayer: true
+```
+
+还需要下载hexo的视频展示插件`cnpm install hexo-tag-dplayer --save`，所有的插件会收录在package.json文件中。
+
+在markdown文件中引入视频请按照下面格式
+
+```apache
+{% dplayer url="/more/案例.mp4" %}
+```
