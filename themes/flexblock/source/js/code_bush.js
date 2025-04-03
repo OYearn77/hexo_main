@@ -40,112 +40,208 @@ document.addEventListener('DOMContentLoaded', function() {
     if (languageName === "code") {
       const codeText = block.textContent || '';
       
-      // 检测C语言代码
-      if (codeText.includes('#include <stdio.h>') || 
-          codeText.includes('#include <stdlib.h>') || 
-          codeText.includes('int main(') || 
-          codeText.includes('void main(') ||
-          /volatile\s+(int|float|char|double)/.test(codeText) ||
-          /\#define\s+\w+/.test(codeText) ||
-          /\#ifndef\s+\w+/.test(codeText) ||
-          /\#endif/.test(codeText) ||
-          /struct\s+\w+\s*\{/.test(codeText) ||
-          /typedef\s+struct/.test(codeText) ||
-          (codeText.includes('//') && 
-           (codeText.includes('int ') || codeText.includes('void ') || 
-            codeText.includes('char ') || codeText.includes('float ') || 
-            codeText.includes('double ') || codeText.includes('unsigned ')) &&
-           !codeText.includes('class ') && !codeText.includes('import '))) {
-        languageName = 'c';
+      // 检测C/C++语言代码
+      if ((codeText.includes('#include <') || 
+          /\bmain\s*\([^\)]*\)\s*\{/.test(codeText) ||
+          /#define\s+\w+/.test(codeText) ||
+          /\bstd::\w+/.test(codeText) ||
+          /\bconst\s+\w+[\s\*]+\w+/.test(codeText) ||
+          /\btypedef\s+\w+/.test(codeText) ||
+          /\b(char|int|float|double|void|unsigned|long|struct|union)\s+[\*\s]*\w+/.test(codeText)) &&
+          !codeText.includes('console.log') && 
+          !codeText.includes('document.') && 
+          !codeText.includes('import ') && 
+          !codeText.includes('function ')) {
+        
+        // 区分C和C++
+        if (codeText.includes('std::') || 
+            codeText.includes('namespace') || 
+            codeText.includes('template') || 
+            codeText.includes('class ') || 
+            codeText.includes('new ') || 
+            codeText.includes('delete ') ||
+            codeText.includes('->') ||
+            codeText.includes('<<') || 
+            codeText.includes('>>') ||
+            codeText.includes('::')) {
+          languageName = 'cpp';
+        } else {
+          languageName = 'c';
+        }
+      }
+      // 检测C#代码
+      else if (/using\s+System;/.test(codeText) || 
+               /namespace\s+\w+/.test(codeText) && codeText.includes('{') || 
+               /public\s+class\s+\w+/.test(codeText) && codeText.includes('{') ||
+               /\bstring\[\]\s+args/.test(codeText) ||
+               /Console\.Write(Line)?\(/.test(codeText) ||
+               /\bdouble\s+\w+\s*=/.test(codeText) && codeText.includes(';')) {
+        languageName = 'csharp';
       }
       // 检测MATLAB代码
       else if (/function\s+(\[[\w\s,]+\]\s*=\s*)?[\w\d_]+\(.*\)/.test(codeText) || 
               /^\s*%.*/.test(codeText) ||
               /end(\s*%.*)?$/.test(codeText) ||
-              /plot\(.*\)/.test(codeText) ||
-              /figure\(.*\)/.test(codeText) ||
-              /^\s*for\s+\w+\s*=/.test(codeText) ||
-              /disp\(.*\)/.test(codeText) ||
-              (codeText.includes('%') && codeText.includes('end') && 
-               !codeText.includes(';') && !codeText.includes('//') && 
-               !codeText.includes('/*') && !codeText.includes('*/')) ||
-              (codeText.includes('[]') && codeText.includes('=') && codeText.includes(':'))){
+              /\b(plot|figure|subplot|xlabel|ylabel|title|xlim|ylim|hold|grid|axis|legend)\s*\(/.test(codeText) ||
+              /^\s*for\s+\w+\s*=/.test(codeText) && !codeText.includes('{') ||
+              /\bdisp\s*\(/.test(codeText)) {
         languageName = 'matlab';
       }
       // 检测Java代码
-      else if (codeText.includes('public class') || 
-          codeText.includes('private ') || 
-          codeText.includes('protected ') ||
-          (codeText.includes('import java.') && codeText.includes(';')) ||
-          /\@Override\s+public/.test(codeText)) {
+      else if ((/public\s+(static\s+)?(final\s+)?(class|interface|enum)\s+\w+/.test(codeText) || 
+          /\@Override/.test(codeText) ||
+          /\bimport\s+java\./.test(codeText) ||
+          /\bextends\s+\w+/.test(codeText) ||
+          /\bimplements\s+\w+/.test(codeText) ||
+          /\bnew\s+\w+\s*\(/.test(codeText) ||
+          /public\s+(static\s+)?(final\s+)?\w+(\[\])?\s+\w+\s*\(/.test(codeText)) &&
+          !codeText.includes('func ') && 
+          !codeText.includes('let ') && 
+          !codeText.includes('var ') && 
+          !codeText.includes('const ')) {
         languageName = 'java';
       }
       // 检测Python代码
-      else if (codeText.includes('def ') || 
-               codeText.includes('import ') && !codeText.includes(';') ||
-               codeText.includes('from ') && codeText.includes(' import ') ||
-               codeText.includes('class ') && codeText.includes(':') ||
-               /print\s*\(/.test(codeText)) {
+      else if ((/\bdef\s+\w+\s*\(.*\)\s*:/.test(codeText) || 
+               /\bimport\s+\w+/.test(codeText) && !codeText.includes('{') && !codeText.includes(';') ||
+               /\bfrom\s+\w+\s+import\s+/.test(codeText) ||
+               /\bclass\s+\w+(\s*\(\s*\w+\s*\))?\s*:/.test(codeText) ||
+               /\bif\s+.*\s*:/.test(codeText) && !codeText.includes('{') ||
+               /\bfor\s+\w+\s+in\s+/.test(codeText) ||
+               /\bprint\s*\(.*\)/.test(codeText) ||
+               /\bwith\s+\w+\s+as\s+\w+\s*:/.test(codeText))) {
         languageName = 'python';
       }
-      // 检测JavaScript代码
-      else if (codeText.includes('function ') || 
-               codeText.includes('const ') || 
-               codeText.includes('let ') ||
-               codeText.includes('=>') ||
-               /document\./.test(codeText) ||
-               /console\.log/.test(codeText)) {
-        languageName = 'javascript';
+      // 检测JavaScript/TypeScript代码
+      else if ((/\bfunction\s+\w+\s*\(/.test(codeText) || 
+               /\bconst\s+\w+\s*=/.test(codeText) || 
+               /\blet\s+\w+\s*=/.test(codeText) ||
+               /\bvar\s+\w+\s*=/.test(codeText) ||
+               /=>\s*{/.test(codeText) ||
+               /\bdocument\./.test(codeText) ||
+               /\bconsole\.log/.test(codeText) ||
+               /\bwindow\./.test(codeText) ||
+               /\$\(.*\)\./.test(codeText) ||
+               /new\s+Promise\s*\(/.test(codeText) ||
+               /\basync\s+function/.test(codeText) ||
+               /\bawait\s+/.test(codeText)) &&
+               !codeText.includes('func ') &&
+               !codeText.includes('package ')) {
+        
+        // 区分JS和TS
+        if (codeText.includes(':') && 
+            (/:\s*(string|number|boolean|any|void|null|undefined|never)\b/.test(codeText) ||
+             /interface\s+\w+/.test(codeText) ||
+             /type\s+\w+\s*=/.test(codeText) ||
+             /<\w+>\(/.test(codeText) ||
+             /\w+<\w+>/.test(codeText) ||
+             /\bimport\s+{\s*\w+\s*}\s+from\s+/.test(codeText))) {
+          languageName = 'typescript';
+        } else {
+          languageName = 'javascript';
+        }
       }
       // 检测HTML代码
-      else if (codeText.includes('<html') || 
-               codeText.includes('<head') ||
-               codeText.includes('<meta') ||
-               codeText.includes('<title') ||
-               codeText.includes('<div') || 
-               codeText.includes('<body') ||
-               codeText.includes('<script') ||
-               codeText.includes('<link') ||
-               codeText.includes('<style') ||
-               codeText.includes('<input') ||
-               codeText.includes('<button') ||
-               codeText.includes('<form') ||
-               codeText.includes('<img') ||
-               codeText.includes('<a href') ||
-               codeText.includes('<p>') ||
-               codeText.includes('<span') ||
-               codeText.includes('<ul>') ||
-               codeText.includes('<li>') ||
-               codeText.includes('<!DOCTYPE') ||
-               (codeText.includes('<') && codeText.includes('</') && codeText.includes('>') && 
-                !codeText.includes('cout') && !codeText.includes('cin'))) {
+      else if ((/<(!DOCTYPE|html|head|body|div|span|p|a|img|ul|ol|li|table|form|input|button|h[1-6]|meta|link|script|style)/.test(codeText) &&
+               />[^<]*<\//.test(codeText)) ||
+               /<!DOCTYPE\s+html>/i.test(codeText)) {
         languageName = 'html';
       }
       // 检测CSS代码
-      else if ((codeText.includes('{') && codeText.includes('}') && codeText.includes(':') && 
-                !codeText.includes('function') && !codeText.includes('class') && 
-                !codeText.includes('if') && !codeText.includes('else')) ||
-               codeText.includes('@media') ||
-               codeText.includes('@keyframes') ||
-               codeText.includes('@import') ||
-               codeText.includes('@font-face') ||
-               /\.[\w-]+\s*\{/.test(codeText) ||
-               /#[\w-]+\s*\{/.test(codeText) ||
-               /\[[\w-]+[\^$*|~]?=["']?[^"']*["']?\]/.test(codeText) ||
-               /display\s*:\s*(flex|grid|block|inline|none)/.test(codeText) ||
-               /position\s*:\s*(relative|absolute|fixed|sticky)/.test(codeText) ||
-               /margin(\-(top|right|bottom|left))?\s*:/.test(codeText) ||
-               /padding(\-(top|right|bottom|left))?\s*:/.test(codeText) ||
-               /color\s*:\s*(#[0-9a-fA-F]{3,8}|rgba?\([^\)]+\)|hsla?\([^\)]+\))/.test(codeText) ||
-               /background(\-(color|image|position|size))?\s*:/.test(codeText)) {
+      else if ((/[\.\#\*]\w+[\-\w]*\s*{/.test(codeText) || 
+               /@(media|keyframes|import|font-face|supports)\s/.test(codeText) ||
+               /\b(margin|padding|font-size|color|background|display|position|width|height|border|text-align|line-height|box-shadow|transform|transition|animation)\s*:/.test(codeText)) &&
+               !codeText.includes('function') &&
+               !codeText.includes('class') && 
+               !codeText.includes('if') && 
+               !codeText.includes('else')) {
         languageName = 'css';
       }
+      // 检测PHP代码
+      else if (/(<\?php|\?>)/.test(codeText) || 
+               /\$\w+\s*=/.test(codeText) && codeText.includes(';') ||
+               /echo\s+["']/.test(codeText) ||
+               /\bfunction\s+\w+\s*\([^\)]*\)\s*{/.test(codeText) && codeText.includes('$')) {
+        languageName = 'php';
+      }
       // 检测SQL代码
-      else if (codeText.toUpperCase().includes('SELECT ') || 
-               codeText.toUpperCase().includes('FROM ') ||
-               codeText.toUpperCase().includes('INSERT INTO') ||
-               codeText.toUpperCase().includes('CREATE TABLE')) {
+      else if (/\b(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|TRUNCATE|GRANT|REVOKE|BEGIN|COMMIT|ROLLBACK)\b/i.test(codeText) && 
+               (/\bFROM\b/i.test(codeText) || 
+                /\bTABLE\b/i.test(codeText) || 
+                /\bWHERE\b/i.test(codeText) || 
+                /\bORDER BY\b/i.test(codeText) || 
+                /\bGROUP BY\b/i.test(codeText) ||
+                /\bVALUES\s*\(/i.test(codeText))) {
         languageName = 'sql';
+      }
+      // 检测Go代码
+      else if ((/package\s+\w+/.test(codeText) && 
+               (/func\s+\w+\s*\(/.test(codeText) || 
+                /import\s+\(/.test(codeText) ||
+                /var\s+\(\s*\w+\s+\w+/.test(codeText) || 
+                /const\s+\(/.test(codeText))) ||
+               /\bfunc\s+\(\w+\s+\*?\w+\)\s+\w+\s*\(/.test(codeText)) {
+        languageName = 'go';
+      }
+      // 检测Rust代码
+      else if (/fn\s+\w+\s*\(/.test(codeText) || 
+               /let\s+mut\s+\w+/.test(codeText) ||
+               /pub\s+struct\s+\w+/.test(codeText) ||
+               /impl\s+\w+\s+for\s+\w+/.test(codeText) ||
+               /\buse\s+std::/.test(codeText) ||
+               /match\s+\w+\s+{/.test(codeText) ||
+               /\bRust\b/.test(codeText)) {
+        languageName = 'rust';
+      }
+      // 检测Ruby代码
+      else if ((/\bdef\s+\w+/.test(codeText) && !codeText.includes(':')) ||
+               /\bclass\s+\w+\b/.test(codeText) && /\bend\b/.test(codeText) ||
+               /\bmodule\s+\w+\b/.test(codeText) && /\bend\b/.test(codeText) ||
+               /\brequire\s+['"]/.test(codeText) ||
+               /\battr_accessor\b/.test(codeText) ||
+               /@\w+\s*=/.test(codeText) ||
+               /\bRuby\b/.test(codeText)) {
+        languageName = 'ruby';
+      }
+      // 检测Shell/Bash代码
+      else if ((/^\s*#!\/bin\/(ba)?sh/.test(codeText) || 
+               /^\s*#\s*shell script/.test(codeText) ||
+               /\becho\s+["']/.test(codeText) && !codeText.includes(';') ||
+               /\bexport\s+\w+=/.test(codeText) ||
+               /\bif\s+\[\s+/.test(codeText) || 
+               /\bfor\s+\w+\s+in\s+/.test(codeText) && codeText.includes('do') ||
+               /\bwhile\s+\[\s+/.test(codeText) ||
+               /\$\(\w+\)/.test(codeText) ||
+               /\${/.test(codeText) ||
+               codeText.includes('#!/bin/bash')) &&
+               !codeText.includes('function')) {
+        languageName = 'bash';
+      }
+      // 检测JSON数据
+      else if (/^\s*{[\s\S]*"[\w\s]+"\s*:[\s\S]*}\s*$/.test(codeText) && 
+               !codeText.includes('function') && 
+               !codeText.includes('var') && 
+               !codeText.includes('class')) {
+        languageName = 'json';
+      }
+      // 检测XML数据
+      else if (/<\?xml\s+version=["'][^"']+["']\s+encoding=["'][^"']+["']\?>/.test(codeText) ||
+               (/<\w+[^>]*>[\s\S]*<\/\w+>/.test(codeText) && 
+                !codeText.includes('<html') && 
+                !codeText.includes('<body') && 
+                !codeText.includes('<div'))) {
+        languageName = 'xml';
+      }
+      // 检测YAML数据
+      else if ((codeText.includes(': ') && !codeText.includes('{') && !codeText.includes(';')) ||
+               /^\s*[\w\-]+:\s*\w+/.test(codeText) ||
+               /^\s*\-\s+[\w\-]+:\s/.test(codeText) ||
+               /^\s*\-\s+\w+/.test(codeText) && codeText.includes(':') ||
+               /^\s*---\s*$/.test(codeText) ||
+               (/[\w\-]+:\s*$/.test(codeText) && /^\s+[\w\-]+:/.test(codeText)) ||
+               (/^\s*[\w\-]+:\s+[|>]/.test(codeText)) ||
+               (/^\s*\w+:\s*\n\s+- /.test(codeText))) {
+        languageName = 'yaml';
       }
     }
     
