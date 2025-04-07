@@ -6,4 +6,5 @@ categories:
 tags:
 cover:
 toc: true
+mathjax: true
 ---

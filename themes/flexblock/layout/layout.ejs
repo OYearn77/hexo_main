@@ -60,7 +60,8 @@
       MathJax = {
         tex: {
           inlineMath: [['$', '$'], ['\\(', '\\)']],
-          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
+          packages: ['base', 'ams', 'noerrors', 'noundefined']
         },
         svg: {
           fontCache: 'global'
@@ -68,7 +69,11 @@
         options: {
           renderActions: {
             addMenu: []
-          }
+          },
+          processHtmlClass: 'tex2jax_process|mathjax_process|math|output_area'
+        },
+        loader: {
+          load: ['[tex]/noerrors', '[tex]/noundefined']
         }
       };
     </script>
@@ -81,15 +86,19 @@
       /* 调整行内公式样式 */
       .mjx-math {
         display: inline-block !important;
+        line-height: normal !important;
+        vertical-align: middle !important;
       }
       
       /* 调整块级公式样式 */
       .MJX-Display {
         margin: 1em 0 !important;
-        padding: 0 !important;
+        padding: 8px 0 !important;
         overflow-x: auto !important;
         overflow-y: hidden !important;
         text-align: center !important;
+        background-color: #f8f9fa !important;
+        border-radius: 5px !important;
       }
       
       /* 确保公式不会被截断 */
@@ -104,6 +113,16 @@
       /* 防止公式中包含的中文被隐藏 */
       .mjx-mtext {
         font-size: 100% !important;
+      }
+      
+      /* 确保行内公式在Markdown文本中正确对齐 */
+      p .mjx-chtml {
+        vertical-align: -0.25em !important;
+      }
+      
+      /* 添加行内公式与文本的间距 */
+      .mjx-chtml.MJXc-display {
+        margin: 1em 0 !important;
       }
     </style>
   <% } %>
