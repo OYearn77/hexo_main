@@ -31,12 +31,31 @@ rm -rf node\_modules && npm install –force
 
 这下可以运行了![图片2.png](https://s2.loli.net/2025/04/03/IYEqCHOzcf8K9V1.png)
 
-同时建议用cnpm安装 pug 以及 stylus 的渲染器
+同时建议用cnpm安装 pug 以及 stylus 的渲染器![图片3.png](https://s2.loli.net/2025/04/03/zsSLcYD9a3gMhZb.png)
 
 ```apache
 cnpm install hexo-renderer-pug hexo-renderer-stylus ––save
 ```
 
-![图片3.png](https://s2.loli.net/2025/04/03/zsSLcYD9a3gMhZb.png)
 此时在预览本地网页就没有问题了
-如果有下面的提示表示已经装载，此时可以直接hexo s浏览本地页面
+
+## 其他插件的安装
+
+在文件中的package.json中有所有依赖插件，可以尝试安装，建议使用cnpm
+
+```apache
+    "hexo": "^7.3.0",
+    "hexo-asset-img": "^1.2.0",
+    "hexo-generator-archive": "^2.0.0",
+    "hexo-generator-category": "^2.0.0",
+    "hexo-generator-index": "^4.0.0",
+    "hexo-generator-json-content": "^4.2.3",
+    "hexo-generator-tag": "^2.0.0",
+    "hexo-renderer-ejs": "^2.0.0",
+    "hexo-renderer-marked": "^7.0.0",
+    "hexo-renderer-pug": "^3.0.0",
+    "hexo-renderer-stylus": "^3.0.1",
+    "hexo-server": "^3.0.0",
+    "hexo-tag-dplayer": "^0.3.3",
+    "hexo-theme-landscape": "^1.0.0"
+```

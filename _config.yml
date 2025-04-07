@@ -133,3 +133,10 @@ jsonContent:
     tags: true
     cover: true
 
+# MathJax配置
+mathjax:
+  enable: true
+  per_page: true
+  cdn: //cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  tags: none
+

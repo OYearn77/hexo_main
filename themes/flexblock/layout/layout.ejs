@@ -54,6 +54,60 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs@9.16.2/styles/<%= config.highlight.theme || 'monokai' %>.css">
   <% } %>
 
+  <% if (page.mathjax){ %>
+    <script src="//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        svg: {
+          fontCache: 'global'
+        },
+        options: {
+          renderActions: {
+            addMenu: []
+          }
+        }
+      };
+    </script>
+    <style>
+      /* MathJax基本样式优化 */
+      .MathJax {
+        font-size: 1.1em !important;
+      }
+      
+      /* 调整行内公式样式 */
+      .mjx-math {
+        display: inline-block !important;
+      }
+      
+      /* 调整块级公式样式 */
+      .MJX-Display {
+        margin: 1em 0 !important;
+        padding: 0 !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        text-align: center !important;
+      }
+      
+      /* 确保公式不会被截断 */
+      .mjx-container {
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        min-width: auto !important;
+        padding: 0 !important;
+        white-space: nowrap !important;
+      }
+      
+      /* 防止公式中包含的中文被隐藏 */
+      .mjx-mtext {
+        font-size: 100% !important;
+      }
+    </style>
+  <% } %>
+
   <%- css('css/style') %>
 
 </head>

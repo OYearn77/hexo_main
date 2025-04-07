@@ -209,15 +209,40 @@
     margin-left: 0.3em
     margin-right: 0.3em
     background-color: var(--theme-bg-shadow)
+    border-radius: 3px
   }
   p code{
     color: #825ee1
+  }
+  
+  /* 添加对列表中行内代码的样式支持 */
+  li code {
+    color: #825ee1
+    display: inline-block
+    vertical-align: middle
+    background-color: var(--theme-bg-shadow)
+    border-radius: 3px
+    padding: 0 0.3em
+    margin: 0 0.2em
+  }
+  
+  /* 处理嵌套列表中的代码 */
+  li li code {
+    color: #825ee1
+    display: inline-block
+    vertical-align: middle
+    background-color: var(--theme-bg-shadow)
+    border-radius: 3px
   }
 
   pre code {
     background: none
     text-shadow: none
     padding: 0
+    margin: 0
+    color: inherit
+    vertical-align: inherit
+    display: inline
   }
 
   pre, .highlight {
