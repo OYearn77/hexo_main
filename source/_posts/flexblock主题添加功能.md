@@ -9,6 +9,7 @@ tags:
   - flexblock
   - 样式
 cover: https://s2.loli.net/2025/03/31/YWF7e3siptSnvg4.png
+mathjax: true
 ---
 ## 增加底部跳转外部网站图标
 
@@ -175,3 +176,34 @@ dplayer: true
 ```apache
 {% dplayer url="/more/案例.mp4" %}
 ```
+
+## 文章启用公式显示
+
+在markdown中使用单$包括公式展示行内代码,**现在有问题请勿使用**
+
+使用双$$包括公式展示整行代码，示例为
+
+`$$1+1=3$$`
+
+实际样式展示为
+
+$$
+1+1=3
+$$
+
+在配置文件中添加MathJax配置，也在`layout.ejs`中添加了MathJax基本样式。
+
+```apache
+# MathJax配置
+mathjax:
+  enable: true
+  per_page: true
+  cdn: //cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  tags: none
+```
+
+同时在文章的YAML部分添加`mathjax: true`启用，已经在默认YAML中添加为true。
+
+## 下载示例
+
+[点击下载](https://gitee.com/lvm1024/lvm1024/raw/master/public/Resource/DanBo.apk)

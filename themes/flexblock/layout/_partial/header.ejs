@@ -91,13 +91,36 @@
   <% } %>
 
   <%# page banner %>
-  <% if (is_page()) { %>
+  <% if (is_page() && !is_page('search')) { %>
     <div class="header-content">
       <div class="post-text layout-block layout-padding">
         <h1 class="title-wrap"><%= page.title %></h1>
         <% if (page.subtitle) { %>
           <h2 class="title-sub-wrap"><%= page.subtitle %></h2>
         <% } %>
+      </div>
+    </div>
+  <% } %>
+
+  <%# search page %>
+  <% if (is_page('search')) { %>
+    <div class="header-content">
+      <div class="post-text layout-block layout-padding">
+        <h1 class="title-wrap"><%= page.title %></h1>
+        <% if (page.subtitle) { %>
+          <h2 class="title-sub-wrap"><%= page.subtitle %></h2>
+        <% } %>
+        <!-- 搜索框 -->
+        <div class="search-container">
+          <form action="/search/" method="get" class="search-form">
+            <input type="text" name="q" class="search-input" placeholder="搜索文章、标签或分类..." required>
+            <button type="submit" class="search-btn">
+              <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <path d="M996.352 859.648L736 599.296c46.08-60.416 73.728-134.656 73.728-216.064 0-198.656-160.064-358.72-358.72-358.72S92.288 184.576 92.288 383.232s160.064 358.72 358.72 358.72c88.064 0 168.448-31.744 230.656-83.968l257.28 257.28c7.68 7.68 19.968 7.68 27.648 0l29.696-29.696c7.68-7.68 7.68-17.92 0-25.6zM166.912 383.232c0-156.672 125.952-282.624 282.624-282.624s282.624 125.952 282.624 282.624-125.952 282.624-282.624 282.624-282.624-126.464-282.624-282.624z"></path>
+              </svg>
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   <% } %>
