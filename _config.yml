@@ -110,7 +110,7 @@ theme: flexblock
 deploy: #项目发布
   type: git
   repo: https://github.com/OYearn77/oyearn77.github.io.git
-  branch: master
+  branch: main
 
 # 搜索功能配置
 jsonContent:
