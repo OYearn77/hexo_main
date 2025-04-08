@@ -4,15 +4,15 @@
 
 # Site
 title: OYearn's blog
-subtitle: ''
-description: ''
-keywords:
+subtitle: '技术博客与生活随笔'
+description: '分享技术经验、学习心得和生活感悟的个人博客'
+keywords: 技术博客,编程,生活随笔,学习笔记
 author: OYearn
 language:
   - zh-CN
   - en
   - zh-TW
-timezone: ''
+timezone: 'Asia/Shanghai'
 
 
 
