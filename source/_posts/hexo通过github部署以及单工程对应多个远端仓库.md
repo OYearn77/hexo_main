@@ -4,9 +4,12 @@ toc: true
 mathjax: true
 date: 2025-04-10 10:07:01
 subtitle:
-categories:
-tags:
-cover:
+categories: hexo内容
+tags: 
+  - hexo
+  - git
+  - 部署
+cover: https://s2.loli.net/2025/04/10/tXdQ42sZ3Y9hITA.jpg
 ---
 ## github部署上线hexo网页
 
