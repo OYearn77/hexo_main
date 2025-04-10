@@ -59,3 +59,9 @@ cnpm install hexo-renderer-pug hexo-renderer-stylus ––save
     "hexo-tag-dplayer": "^0.3.3",
     "hexo-theme-landscape": "^1.0.0"
 ```
+
+安装插件按照下面示例的格式进行
+
+```apache
+cnpm install XXXXXXX --save
+```
