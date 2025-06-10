@@ -25,54 +25,140 @@
     xhr.send();
   }
 
+  // 提取中文关键词（简单实现）
+  function extractKeywords(text) {
+    if (!text) return [];
+    
+    // 预定义的停用词列表（可以根据需要扩展）
+    var stopWords = ['的', '了', '和', '是', '在', '我', '有', '个', '与', '这', '那', '你', '们', '就', '都'];
+    
+    // 中文分词（简单实现，使用正则表达式分割单字和词语）
+    // 注意：实际应用中应使用专业的分词库，这里只是简化实现
+    var words = [];
+    
+    // 先尝试按空格分词（处理已经分好的词或英文单词）
+    var spaceWords = text.trim().toLowerCase().split(/\s+/);
+    
+    spaceWords.forEach(function(word) {
+      // 对中文进行进一步分词（假设每个汉字都可能是一个词）
+      if (/[\u4e00-\u9fa5]/.test(word)) {
+        // 提取2-3个字的词组（简化版，实际上需要更复杂的分词算法）
+        for (var i = 0; i < word.length; i++) {
+          // 单字
+          if (!stopWords.includes(word[i])) {
+            words.push(word[i]);
+          }
+          
+          // 双字词
+          if (i < word.length - 1) {
+            var twoChars = word.substring(i, i + 2);
+            if (!stopWords.includes(twoChars)) {
+              words.push(twoChars);
+            }
+          }
+          
+          // 三字词
+          if (i < word.length - 2) {
+            var threeChars = word.substring(i, i + 3);
+            if (!stopWords.includes(threeChars)) {
+              words.push(threeChars);
+            }
+          }
+        }
+      } else {
+        // 非中文词直接添加
+        if (word && !stopWords.includes(word)) {
+          words.push(word);
+        }
+      }
+    });
+    
+    // 去重
+    return [...new Set(words)];
+  }
+
+  // 计算相关度得分
+  function calculateRelevance(post, keywords) {
+    var score = 0;
+    var titleWeight = 3;    // 标题匹配权重
+    var tagWeight = 2;      // 标签匹配权重
+    var categoryWeight = 2; // 分类匹配权重
+    var contentWeight = 1;  // 内容匹配权重
+    
+    var titleLower = post.title.toLowerCase();
+    var contentLower = post.content ? post.content.toLowerCase() : '';
+    
+    // 计算每个关键词的得分并累加
+    keywords.forEach(function(keyword) {
+      // 标题匹配
+      if (titleLower.indexOf(keyword) > -1) {
+        score += titleWeight;
+      }
+      
+      // 标签匹配
+      if (post.tags && post.tags.length > 0) {
+        for (var i = 0; i < post.tags.length; i++) {
+          if (post.tags[i].name.toLowerCase().indexOf(keyword) > -1) {
+            score += tagWeight;
+            break;
+          }
+        }
+      }
+      
+      // 分类匹配
+      if (post.categories && post.categories.length > 0) {
+        for (var i = 0; i < post.categories.length; i++) {
+          if (post.categories[i].name.toLowerCase().indexOf(keyword) > -1) {
+            score += categoryWeight;
+            break;
+          }
+        }
+      }
+      
+      // 内容匹配（标题权重较高）
+      if (contentLower.indexOf(keyword) > -1) {
+        var count = (contentLower.match(new RegExp(keyword, 'g')) || []).length;
+        score += Math.min(count, 5) * contentWeight; // 限制最大匹配次数
+      }
+    });
+    
+    return score;
+  }
+
   // 搜索函数
   function search(keyword, data) {
     if (!keyword) return [];
     
     keyword = keyword.trim().toLowerCase();
+    
+    // 提取关键词
+    var keywords = extractKeywords(keyword);
+    if (keywords.length === 0) {
+      keywords = [keyword]; // 如果没有提取出关键词，则使用原始输入
+    }
+    
+    console.log('提取的关键词：', keywords);
+    
     var results = [];
     var posts = data.posts;
+    var resultMap = new Map(); // 用于去重和记录得分
 
+    // 对每篇文章，计算与所有关键词的匹配度
     posts.forEach(function(post) {
-      // 搜索标题
-      if (post.title && post.title.toLowerCase().indexOf(keyword) > -1) {
-        results.push(post);
-        return;
-      }
+      var relevance = calculateRelevance(post, keywords);
       
-      // 搜索标签
-      if (post.tags && post.tags.length > 0) {
-        for (var i = 0; i < post.tags.length; i++) {
-          if (post.tags[i].name.toLowerCase().indexOf(keyword) > -1) {
-            results.push(post);
-            return;
-          }
-        }
+      // 只有相关度大于0的文章才添加到结果中
+      if (relevance > 0) {
+        // 添加相关度得分
+        post.relevance = relevance;
+        resultMap.set(post.path, post);
       }
-      
-      // 搜索分类
-      if (post.categories && post.categories.length > 0) {
-        for (var i = 0; i < post.categories.length; i++) {
-          if (post.categories[i].name.toLowerCase().indexOf(keyword) > -1) {
-            results.push(post);
-            return;
-          }
-        }
-      }
-      
-      // 搜索内容中的标题（h1-h6）
-      if (post.content && post.content.indexOf('#') > -1) {
-        var contentLower = post.content.toLowerCase();
-        var headings = contentLower.match(/#+\s+(.*)/g);
-        if (headings) {
-          for (var i = 0; i < headings.length; i++) {
-            if (headings[i].toLowerCase().indexOf(keyword) > -1) {
-              results.push(post);
-              return;
-            }
-          }
-        }
-      }
+    });
+    
+    // 转换Map为数组并按相关度排序
+    results = Array.from(resultMap.values());
+    results.sort(function(a, b) {
+      return b.relevance - a.relevance;
     });
     
     return results;
@@ -88,22 +174,30 @@
     // 显示搜索关键词
     searchKeywordContainer.textContent = keyword;
     
-    // 显示搜索结果数量
-    searchCountContainer.textContent = '(' + results.length + ' 条结果)';
-    
     // 如果没有结果，显示无结果提示
     if (results.length === 0) {
       searchResultContainer.style.display = 'none';
       noResultContainer.style.display = 'block';
+      searchCountContainer.textContent = '(0 条结果)';
       return;
     }
+
+    // 计算最高相关度
+    var maxRelevance = Math.max(...results.map(post => post.relevance));
+    var threshold = maxRelevance / 6;
+
+    // 过滤掉低于阈值的结果
+    var filteredResults = results.filter(post => post.relevance >= threshold);
+    
+    // 显示过滤后的结果数量
+    searchCountContainer.textContent = '(' + filteredResults.length + ' 条结果)';
     
     // 显示搜索结果
     searchResultContainer.style.display = 'block';
     noResultContainer.style.display = 'none';
     
     var html = '';
-    results.forEach(function(post) {
+    filteredResults.forEach(function(post) {
       html += '<div class="article-item layout-padding">';
       html += '<article class="card-container article-card content-padding--large soft-size--large soft-style--box">';
       
@@ -130,6 +224,11 @@
       html += '<div class="card-text--row">';
       html += '<span>发布于</span>';
       html += '<time>' + new Date(post.date).toLocaleDateString() + '</time>';
+      html += '</div>';
+      
+      // 相关度显示（可选）
+      html += '<div class="card-text--row relevance">';
+      html += '<span>相关度: ' + post.relevance + '</span>';
       html += '</div>';
       
       // 分类

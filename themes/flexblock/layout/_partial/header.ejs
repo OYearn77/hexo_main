@@ -1,81 +1,48 @@
-
 <!-- header container -->
 <header class="header-container<%= is_post() ? ' post' : '' %>">
   <% if (page.cover || theme.banner) { %>
-    <div class="post-image" style="<%= `background-image: url(${page.cover || theme.banner})` %>"></div>
+    <div class="post-image" style="background-image: url('<%= page.cover || theme.banner %>')"></div>
   <% } %>
 
   <%- partial('_partial/nav', null, {cache: !config.relative_link}) %>
 
-  <%# index container %>
-  <% if (is_home()) { %>
-    <div class="header-content">
-      <div class="post-text layout-block layout-padding">
+  <div class="header-content">
+    <div class="post-text layout-block layout-padding">
+      <% if (is_home()) { %>
         <h1 class="title-wrap"><%= config.title %></h1>
         <% if (config.subtitle) { %>
           <h2 class="title-sub-wrap"><%= config.subtitle %></h2>
         <% } %>
-        <!-- 搜索框 -->
-        <div class="search-container">
-          <form action="/search/" method="get" class="search-form">
-            <input type="text" name="q" class="search-input" placeholder="搜索文章、标签或分类..." required>
-            <button type="submit" class="search-btn">
-              <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <path d="M996.352 859.648L736 599.296c46.08-60.416 73.728-134.656 73.728-216.064 0-198.656-160.064-358.72-358.72-358.72S92.288 184.576 92.288 383.232s160.064 358.72 358.72 358.72c88.064 0 168.448-31.744 230.656-83.968l257.28 257.28c7.68 7.68 19.968 7.68 27.648 0l29.696-29.696c7.68-7.68 7.68-17.92 0-25.6zM166.912 383.232c0-156.672 125.952-282.624 282.624-282.624s282.624 125.952 282.624 282.624-125.952 282.624-282.624 282.624-282.624-126.464-282.624-282.624z"></path>
-              </svg>
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  <% } %>
+      <% } %>
 
-  <%# archive container %>
-  <% if (is_archive()) { %>
-    <div class="header-content">
-      <div class="post-text layout-block layout-padding">
+      <% if (is_archive()) { %>
         <h1 class="title-wrap">归档</h1>
         <h2 class="title-sub-wrap">共有<%= site.posts.length %>篇文章</h2>
-      </div>
-    </div>
-  <% } %>
+      <% } %>
 
-  <%# category banner %>
-  <% if (is_category()) { %>
-    <%
-      var length = 0;
-      site.categories.each(function (categorie) {
-        if (categorie.name === page.category) length = categorie.length
-      });
-    %>
-    <div class="header-content">
-      <div class="post-text layout-block layout-padding">
+      <% if (is_category()) { %>
+        <%
+          var length = 0;
+          site.categories.each(function (categorie) {
+            if (categorie.name === page.category) length = categorie.length
+          });
+        %>
         <h1 class="title-wrap"><%= page.category %></h1>
         <h2 class="title-sub-wrap">当前分类下共有<%= length %>篇文章</h2>
-      </div>
-    </div>
-  <% } %>
+      <% } %>
 
-  <%# tag banner %>
-  <% if (is_tag()) { %>
-    <%
-      var length = 0;
-      site.tags.each(function (tag) {
-        if (tag.name === page.tag) length = tag.length
-      });
-    %>
-    <div class="header-content">
-      <div class="post-text layout-block layout-padding">
+      <% if (is_tag()) { %>
+        <%
+          var length = 0;
+          site.tags.each(function (tag) {
+            if (tag.name === page.tag) length = tag.length
+          });
+        %>
         <h1 class="title-wrap"><%= page.tag %></h1>
         <h2 class="title-sub-wrap">当前标签下共有<%= length %>篇文章</h2>
-      </div>
-    </div>
-  <% } %>
+      <% } %>
 
-  <%# post banner %>
-  <% if (is_post()) { %>
-    <div class="header-content">
-      <div class="post-text layout-block">
+      <% if (is_post()) { %>
         <div class="layout-margin">
           <h1 class="title-wrap"><%= page.title %></h1>
           <h2 class="title-sub-wrap">
@@ -86,31 +53,24 @@
           <%- partial("../_widget/category", { page: page, class_name: 'dark' }) %>
           <%- partial("../_widget/tag", { page: page, class_name: 'dark' }) %>
         </div>
-      </div>
-    </div>
-  <% } %>
+      <% } %>
 
-  <%# page banner %>
-  <% if (is_page() && !is_page('search')) { %>
-    <div class="header-content">
-      <div class="post-text layout-block layout-padding">
+      <% if (is_page() && !is_page('search')) { %>
         <h1 class="title-wrap"><%= page.title %></h1>
         <% if (page.subtitle) { %>
           <h2 class="title-sub-wrap"><%= page.subtitle %></h2>
         <% } %>
-      </div>
-    </div>
-  <% } %>
+      <% } %>
 
-  <%# search page %>
-  <% if (is_page('search')) { %>
-    <div class="header-content">
-      <div class="post-text layout-block layout-padding">
+      <% if (is_page('search')) { %>
         <h1 class="title-wrap"><%= page.title %></h1>
         <% if (page.subtitle) { %>
           <h2 class="title-sub-wrap"><%= page.subtitle %></h2>
         <% } %>
-        <!-- 搜索框 -->
+      <% } %>
+
+      <!-- 搜索框 -->
+      <% if (is_home() || is_page('search')) { %>
         <div class="search-container">
           <form action="/search/" method="get" class="search-form">
             <input type="text" name="q" class="search-input" placeholder="搜索文章、标签或分类..." required>
@@ -121,8 +81,7 @@
             </button>
           </form>
         </div>
-      </div>
+      <% } %>
     </div>
-  <% } %>
-  
+  </div>
 </header>

@@ -1,7 +1,7 @@
 ---
-title: about
+title: 关于
 date: 2025-03-30 23:28:09
-subtitle: 关于
+subtitle: 
 cover: 
 layout: message
 ---
