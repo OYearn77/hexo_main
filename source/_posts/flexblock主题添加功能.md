@@ -191,6 +191,8 @@ $$
 1+1=3
 $$
 
+
+
 在配置文件中添加MathJax配置，也在`layout.ejs`中添加了MathJax基本样式。
 
 ```apache
@@ -207,3 +209,9 @@ mathjax:
 ## 下载示例
 
 [点击下载](https://gitee.com/lvm1024/lvm1024/raw/master/public/Resource/DanBo.apk)
+
+## 写本项目markdown注意
+
+### 无需列表ul下代码块插入
+
+不要直接换行写，须转入源代码编辑模式取消代码块的缩进，将代码块设置为正文部分，否则会出现代码换行bug。![image.png](https://s2.loli.net/2025/06/10/reTQKwGnV4RWtl8.png)
