@@ -76,18 +76,23 @@
     width: 100%
     border-collapse: collapse
     border-spacing: 0
+    table-layout: auto
   }
 
   th {
     font-weight: bold
     border-bottom: 3px solid #ddd
     padding-bottom: 0.5em
-    text-align: left
+    text-align: center
+    vertical-align: middle
+    color: #ff69b4
   }
 
   td {
     border-bottom: 1px solid #ddd
-    padding: 10px 0
+    padding: 10px 5px
+    text-align: center
+    vertical-align: middle
   }
 
   hr {
@@ -270,11 +275,19 @@
     table {
       margin: 0
       width: auto
+      table-layout: fixed
     }
 
     td {
       border: none
       padding: 0
+      text-align: left
+      vertical-align: top
+    }
+
+    th {
+      text-align: left
+      vertical-align: top
     }
 
     .gutter pre {
@@ -351,6 +364,79 @@
 p.katex-block::before {
   display: none !important;
   content: none !important;
+}
+
+/* 表格展开/压缩功能样式 */
+.table-container {
+  position: relative;
+  margin: 1em 0;
+}
+
+.table-row-hidden {
+  display: none !important;
+}
+
+.table-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0px;
+  margin-top: 0px;
+  padding: 8px 0;
+}
+
+.table-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  background-color: var(--theme-bg-high);
+  border: 1px solid var(--theme-border-primary);
+  border-radius: 4px;
+  color: var(--theme-text-primary);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: var(--theme-text-active);
+    color: var(--theme-text-light);
+    border-color: var(--theme-text-active);
+  }
+  
+  .toggle-icon {
+    font-size: 10px;
+    transition: transform 0.3s ease;
+  }
+}
+
+.table-row-info {
+  font-size: 12px;
+  color: var(--theme-text-low);
+  font-style: italic;
+}
+
+/* 表格收起状态的过渡效果 */
+.table-collapsed {
+  transition: all 0.3s ease;
+}
+
+/* 响应式调整 */
+@media screen and (max-width: 768px) {
+  .table-controls {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .table-toggle-btn {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+  
+  .table-row-info {
+    font-size: 11px;
+  }
 }
 
 
