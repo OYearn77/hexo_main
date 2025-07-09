@@ -32,6 +32,6 @@
     "hexo-theme-landscape": "^1.0.0",
     "natural": "^8.0.1",
     "nodejieba": "^3.4.4",
-    "openai": "^4.93.0"
+    "openai": "^5.8.3"
   }
 }
