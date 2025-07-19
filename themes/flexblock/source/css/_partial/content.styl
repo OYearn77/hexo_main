@@ -27,6 +27,7 @@
     font-size: 24px;
   }
 
+
   h3 {
     font-size: 20px;
   }
@@ -437,6 +438,34 @@ p.katex-block::before {
   .table-row-info {
     font-size: 11px;
   }
+}
+
+/* 行级背景高亮 */
+.line-red, .bg-red {
+  display: block;
+  background-color: #ffe6e6;
+  color: #d41f1f;
+  padding: 4px 6px;
+  border-radius: 3px;
+  font-size: 15px;
+  margin: 5px 0 5px;
+}
+
+.line-green, .bg-green {
+  display: block;
+  background-color: #e7f8ee;
+  color: #1a811a;
+  padding: 4px 6px;
+  border-radius: 3px;
+  font-size: 15px;
+  margin: 5px 0 5px;
+}
+
+.line-red + p,
+.bg-red + p,
+.line-green + p,
+.bg-green + p {
+  margin-top: 0;
 }
 
 

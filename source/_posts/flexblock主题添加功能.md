@@ -188,10 +188,8 @@ dplayer: true
 实际样式展示为
 
 $$
-1+1=3
+1 + 1 = 3
 $$
-
-
 
 在配置文件中添加MathJax配置，也在`layout.ejs`中添加了MathJax基本样式。
 
@@ -206,12 +204,40 @@ mathjax:
 
 同时在文章的YAML部分添加`mathjax: true`启用，已经在默认YAML中添加为true。
 
+## 整段添加背景色和改变颜色
+
+已在`content.styl`添加类样式
+```apache
+/* 行级背景高亮 */
+.line-red, .bg-red {
+  display: block;               /* 占整行 */
+  background-color: #ffe6e6;    /* 淡红色底 */
+  color: #d41f1f;               /* 深红文字 */
+  padding: 4px 6px;
+  border-radius: 3px;
+}
+
+.line-green, .bg-green {
+  display: block;
+  background-color: #e7f8ee;    /* 淡绿色底 */
+  color: #1a811a;               /* 深绿文字 */
+  padding: 4px 6px;
+  border-radius: 3px;
+}
+```
+
+在markdown中这样添加即可`<div class="line-red"></div>`
+
+<div class="line-red">这是一行红色背景的提醒文字</div>
+
+<div class="line-green">这是一行绿色背景的提示文字</div>
+
 ## 下载示例
 
 [点击下载](https://gitee.com/lvm1024/lvm1024/raw/master/public/Resource/DanBo.apk)
 
 ## 写本项目markdown注意
 
-### 无需列表ul下代码块插入
+### 无序列表ul下代码块插入
 
 不要直接换行写，须转入源代码编辑模式取消代码块的缩进，将代码块设置为正文部分，否则会出现代码换行bug。![image.png](https://s2.loli.net/2025/06/10/reTQKwGnV4RWtl8.png)
