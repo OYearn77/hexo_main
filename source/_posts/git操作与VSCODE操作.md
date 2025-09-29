@@ -148,7 +148,7 @@ touch .gitignore
 
 ### 公钥设置
 
-`ssh-keygen -t rsa`，生成一个公钥，不需要填写什么；`cat \~/.ssh/id\_rsa.pub`，获取公钥
+`ssh-keygen -t rsa`，生成一个公钥，不需要填写什么，一直回车即可；`cat ~/.ssh/id_rsa.pub`，获取公钥
 
 在github中添加这个公钥![Snipaste_2025-04-02_15-51-24.png](https://s2.loli.net/2025/04/02/Li6TBMlHG7IgVX4.png)
 
